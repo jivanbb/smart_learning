@@ -15,33 +15,33 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="<?php echo base_url() ?>tools/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="<?php echo base_url() ?>tools/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="<?php echo base_url() ?>tools/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="<?php echo base_url() ?>tools/chart.js/Chart.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="<?php echo base_url() ?>tools/sparklines/sparkline.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="<?php echo base_url() ?>tools/jqvmap/jquery.vmap.min.js"></script>
-<script src="<?php echo base_url() ?>tools/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="<?php echo base_url() ?>tools/jquery-knob/jquery.knob.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="<?php echo base_url() ?>tools/moment/moment.min.js"></script>
-<script src="<?php echo base_url() ?>tools/daterangepicker/daterangepicker.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/moment/moment.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url() ?>tools/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="<?php echo base_url() ?>tools/summernote/summernote-bs4.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="<?php echo base_url() ?>tools/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="<?php echo base_url() ?>tools/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>tools/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->

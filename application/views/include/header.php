@@ -19,12 +19,14 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(). 'tools/css/style.css' ?>">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

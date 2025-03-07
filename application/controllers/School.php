@@ -25,8 +25,9 @@ class School extends CI_Controller
         }
         else
         {
+            $data['all_category']=$this->CM->select_data('category','*');
             $this->load->view('include/header');
-            $this->load->view('category');
+            $this->load->view('category',$data);
             $this->load->view('include/footer');
         }
     }

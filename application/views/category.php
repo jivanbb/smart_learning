@@ -13,15 +13,25 @@
     </tr>
   </thead>
   <tbody>
+    <?php
+    $i=1;
+    foreach($all_category as $cat)
+    {
+    ?>
     <tr>
-      <th scope="row">1</th>
-      <td>Middle</td>
-      <td><input type="checkbox" name="status"></td>
+      <th scope="row"></th>
+      <td><?php echo $i; ?></td>
+      <td><?php echo $cat['name']; ?></td>
+      <td><input type="checkbox" <?php if($cat['status']==1) {echo "checked"; } ?> name="status"></td>
       <td>
         <a href="javascript:;" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
         <a href="javascript:;" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a>
       </td>
     </tr>
+    <?php
+    $i++;
+    }
+    ?>
   </tbody>
 </table>
             </div>  

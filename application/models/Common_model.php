@@ -5,5 +5,14 @@ class common_model extends CI_Model
     {
         parent::__construct();
     }
+    public function select_data($tbl_name,$field,$warr='')
+    {
+        if($warr!='')
+        {
+            $this->db->where($warr);
+        }
+        $res=$this->db->select($field)->from($tbl_name)->get();
+        return $res->result_array();
+    }
 } 
 ?>

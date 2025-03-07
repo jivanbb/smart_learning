@@ -37,5 +37,12 @@ class School extends CI_Controller
         $this->db->delete('category');
         redirect(base_url().'index.php/school/category');
     }
+    function edit_category($id)
+    {
+        $data['cat_info']=$this->CM->select_data('category','*',array('id'=>$id));
+        $this->load->view('include/header');
+        $this->load->view('edit_category',$data);
+        $this->load->view('include/footer');
+    }
 }
 ?>

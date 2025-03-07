@@ -7,29 +7,20 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>Middle</td>
+      <td><input type="checkbox" name="status"></td>
+      <td>
+        <a href="javascript:;" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+        <a href="javascript:;" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -45,13 +36,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Add New Category</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <form action="<?php echo base_url().'index.php/school/category' ?>" id="add_category"> 
+            <div class="form-group">
+                <label>Enter Category Name</label>
+                <input type="text" name="name" class="form-control" id="category" placeholder="Enter Category Name">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </form>
       </div>
     </div>
 

@@ -50,6 +50,7 @@
 <script src="<?php echo base_url() ?>tools/dist/js/pages/dashboard.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url() ?>tools/js/custom.js"></script>
 </body>
 </html>
 <script type="text/javascript">

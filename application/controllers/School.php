@@ -31,5 +31,11 @@ class School extends CI_Controller
             $this->load->view('include/footer');
         }
     }
+    function delete_category($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('category');
+        redirect(base_url().'index.php/school/category');
+    }
 }
 ?>

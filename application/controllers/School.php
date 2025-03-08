@@ -39,10 +39,21 @@ class School extends CI_Controller
     }
     function edit_category($id)
     {
-        $data['cat_info']=$this->CM->select_data('category','*',array('id'=>$id));
-        $this->load->view('include/header');
-        $this->load->view('edit_category',$data);
-        $this->load->view('include/footer');
+        if($this->input->method()=='post')
+        {
+            $resp=$this->CM->update_date('category',$_POST,array('id'=>$id));
+            if($resp)
+               echo 1;
+            else
+               echo 0;
+        }
+        else
+        {
+            $data['cat_info']=$this->CM->select_data('category','*',array('id'=>$id));
+            $this->load->view('include/header');
+            $this->load->view('edit_category',$data);
+            $this->load->view('include/footer');
+        }
     }
 }
 ?>

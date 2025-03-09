@@ -55,5 +55,12 @@ class School extends CI_Controller
             $this->load->view('include/footer');
         }
     }
+    function classes()
+    {
+        $data['classes']=$this->CM->select_data('classes','*');
+        $this->load->view('include/header');
+        $this->load->view('classes',$data);
+        $this->load->view('include/footer');
+    }
 }
 ?>

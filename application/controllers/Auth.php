@@ -50,5 +50,10 @@ class Auth extends CI_Controller
     public function forgot_password(){
         $this->load->view('forgot_password');    
     }
+
+    public function log_out(){  
+        $this->session->sess_destroy();
+		redirect('/');
+     }
 }
 ?>

@@ -15,5 +15,11 @@ class Admin extends CI_Controller
     {
         echo "This is a category function";
     }
+
+    public function profile(){
+        $this->load->view('include/header');
+        $this->load->view('profile');
+        $this->load->view('include/footer');    
+    }
 }
 ?>

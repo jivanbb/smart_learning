@@ -11,6 +11,12 @@ class User_model extends CI_Model
         $this->db->where('pass',md5($password));
         return $this->db->get('users')->row();
     }
+    public function get_user_list(){  
+return $this->db->get('users')->result();
+    }
+    public function get_user_detail($id){
+        return $this->db->where('id',$id)->get('users')->row();
+    }
 
 } 
 ?>

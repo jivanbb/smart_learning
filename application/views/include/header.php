@@ -33,6 +33,11 @@
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/summernote/summernote-bs4.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'tools/css/style.css' ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'tools/plugins/sweetalert2/sweetalert2.css' ?>">
+  <!-- jQuery -->
+<script src="<?php echo base_url() ?>tools/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo base_url() ?>tools/plugins/jquery-ui/jquery-ui.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -66,15 +71,17 @@
             <i class="fas fa-th-large"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header"><strong>Jivan Bist</strong></span>
+            <span class="dropdown-item dropdown-header"><strong><?php $user_name = $this->session->userdata('full_name');
+            echo $user_name; ?></strong></span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-            <i class="fas fa-lock"></i> Login Time
+              <i class="fas fa-lock"></i> Login Time
               <span class="float-right text-muted text-sm">2025-02-05</span>
             </a>
             <div class="dropdown-divider"></div>
-              <a href="<?php echo base_url('admin/profile') ?>" class="btn btn-default btn-flat">Profile</a>
-              <a href="<?php echo base_url('auth/log_out') ?>" class="btn btn-default btn-flat" style="margin-left:120px;">Log Out</a>
+            <a href="<?php echo base_url('admin/profile') ?>" class="btn btn-default btn-flat">Profile</a>
+            <a href="<?php echo base_url('auth/log_out') ?>" class="btn btn-default btn-flat"
+              style="margin-left:120px;">Log Out</a>
           </div>
         </li>
 
@@ -109,41 +116,8 @@
                 </p>
               </a>
             </li>
-            <!-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Category Management
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url() . 'index.php/school/category' ?>" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-            <!-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Class Management
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url() . 'index.php/school/classes' ?>" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Classes</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-          <li class="nav-item">
+
+            <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
@@ -153,7 +127,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?php echo base_url() . 'index.php/admin/user' ?>" class="nav-link active">
+                  <a href="<?php echo base_url() . 'index.php/admin/user_list' ?>" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>User</p>
                   </a>

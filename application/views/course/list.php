@@ -41,14 +41,15 @@
                   </tr>
                   </thead>
                   <tbody>
+                    <?php foreach($course_list as $course){?>
                   <tr>
-                    <td>Pokhara University</td>
-                    <td>BCA</td>
-                    <td>1200</td>
-                    <td> 90</td>
-                    <td> <a href="<?= base_url('/course/edit/1'); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
+                    <td><?php echo $course->board_name;?></td>
+                    <td><?php echo $course->name;?></td>
+                    <td><?php echo $course->amount;?></td>
+                    <td> <?php echo $course->valid_days;?></td>
+                    <td> <a href="<?= base_url('/course/edit/'.$course->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
                   </tr>
-                
+                <?php }?>
                   </tr>
                   </tbody>
                 </table>

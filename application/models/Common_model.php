@@ -19,5 +19,9 @@ class Common_model extends CI_Model
         $this->db->where($wdata);
         return $this->db->update($tbl_name,$data);
     }
+
+    public function get_db_data($tbl_name){
+        return $this->db->get($tbl_name)->result();
+    }
 } 
 ?>

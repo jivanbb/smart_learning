@@ -27,23 +27,24 @@
           <div class="form-group">
             <label for="inputName">Board/University</label>
             <select class="form-control select2"  style="width: 100%;">
-              <option selected="selected">Pokhara University</option>
-              <option>TU</option>
+            <?php foreach($board_list as $board){?>
+              <option <?php if($board->id ==$course_detail->board_id){echo 'selected';}?> value="<?php echo $board->id?>"><?php echo $board->name;?></option>
+              <?php }?>
             </select>
           </div>
           <div class="form-group">
             <label for="inputName">Course Name</label>
-            <input type="text" id="inputName" class="form-control">
+            <input type="text" id="inputName" name="name" class="form-control" value="<?php echo $course_detail->name;?>">
           </div>
 
          
           <div class="form-group">
             <label for="inputClientCompany">Amount</label>
-            <input type="text" id="inputClientCompany" class="form-control">
+            <input type="text" id="inputClientCompany" name="amount" class="form-control" value="<?php echo $course_detail->amount;?>">
           </div>
           <div class="form-group">
             <label for="inputProjectLeader">Valid Days</label>
-            <input type="text" id="inputProjectLeader" class="form-control">
+            <input type="text" id="inputProjectLeader" name="valid_days" class="form-control" value="<?php  echo $course_detail->valid_days;?>">
           </div>
           <!-- /.col -->
         </div>

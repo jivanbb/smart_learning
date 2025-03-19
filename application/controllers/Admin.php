@@ -52,7 +52,7 @@ class Admin extends CI_Controller
                 'email' => $this->input->post('email'),
                 'address' => $this->input->post('address'),
                 'phone_no' => $this->input->post('phone_no'),
-                'education' => $this->input->post('eduction'),
+                'education' => $this->input->post('education'),
                 'experience' => $this->input->post('experience'),
                 'description' => $this->input->post('description'),
                 'skills' => $this->input->post('skills'),
@@ -76,6 +76,40 @@ class Admin extends CI_Controller
         echo json_encode($this->data);
         exit;
 
+    }
+
+    public function update_user($id) {
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); // add validation for the email
+        $this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
+        if ($this->form_validation->run() == TRUE) {
+            $update_data = [
+                'full_name' => $this->input->post('full_name'),
+                'email' => $this->input->post('email'),
+                'address' => $this->input->post('address'),
+                'phone_no' => $this->input->post('phone_no'),
+                'education' => $this->input->post('education'),
+                'experience' => $this->input->post('experience'),
+                'description' => $this->input->post('description'),
+                'skills' => $this->input->post('skills'),
+                 'pass' => md5('admin12345'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('users', $update_data);
+            if ($id) {
+                $this->data['success'] = true;
+                $this->data['message'] = 'Sucessfully Updated';
+            } else {
+                $this->data['success'] = false;
+                $this->data['message'] = 'Error Occured';
+            }
+        } else {
+            $this->data['success'] = false;
+            $this->data['message'] = validation_errors();
+        }
+
+        echo json_encode($this->data);
+        exit;
     }
 }
 ?>

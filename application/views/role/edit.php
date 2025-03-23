@@ -25,38 +25,16 @@
       <div class="col-md-8">
         <div class="card-body">
           <?php $id =$this->uri->segment(3);?>
-          <?= form_open(base_url('/course/edit_course/'.$id), [
-            'name' => 'form_create_course',
-            'id' => 'form_update_course',
+          <?= form_open(base_url('/role/edit_course/'.$id), [
+            'name' => 'form_update_role',
+            'id' => 'form_update_role',
             'method' => 'POST'
           ]); ?>
+
           <div class="form-group">
-            <label for="inputName">Board/University</label>
-            <select class="form-control select2"  name="board_id" style="width: 100%;">
-              <?php foreach ($board_list as $board) { ?>
-                <option <?php if ($board->id == $course_detail->board_id) {
-                  echo 'selected';
-                } ?>
-                  value="<?php echo $board->id ?>"><?php echo $board->name; ?></option>
-              <?php } ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="inputName">Course Name</label>
+            <label for="inputName">Name</label>
             <input type="text" id="inputName" name="name" class="form-control"
-              value="<?php echo $course_detail->name; ?>">
-          </div>
-
-
-          <div class="form-group">
-            <label for="inputClientCompany">Amount</label>
-            <input type="text" id="inputClientCompany" name="amount" class="form-control"
-              value="<?php echo $course_detail->amount; ?>">
-          </div>
-          <div class="form-group">
-            <label for="inputProjectLeader">Valid Days</label>
-            <input type="text" id="inputProjectLeader" name="valid_days" class="form-control"
-              value="<?php echo $course_detail->valid_days; ?>">
+              value="<?php echo $role_detail->name; ?>">
           </div>
           <!-- /.col -->
         </div>
@@ -65,7 +43,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="col-12">
-          <input  value="edit" class="btn btn-success update_course">
+          <input  value="edit" class="btn btn-success update_role">
           <a href="#" class="btn btn-secondary">Cancel</a>
         </div>
       </div>

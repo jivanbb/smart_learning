@@ -18,8 +18,10 @@ class Admin extends CI_Controller
     }
 
     public function profile(){
+        $id =$this->session->userdata('user_id');
+        $data['user_detail'] =$this->user_model->get_user_detail($id); 
         $this->load->view('include/header');
-        $this->load->view('profile');
+        $this->load->view('profile',$data);
         $this->load->view('include/footer');    
     }
 
@@ -92,6 +94,39 @@ class Admin extends CI_Controller
                 'description' => $this->input->post('description'),
                 'skills' => $this->input->post('skills'),
                  'pass' => md5('admin12345'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('users', $update_data);
+            if ($id) {
+                $this->data['success'] = true;
+                $this->data['message'] = 'Sucessfully Updated';
+            } else {
+                $this->data['success'] = false;
+                $this->data['message'] = 'Error Occured';
+            }
+        } else {
+            $this->data['success'] = false;
+            $this->data['message'] = validation_errors();
+        }
+
+        echo json_encode($this->data);
+        exit;
+    }
+    public function update_profile() {
+        $id =$this->session->userdata('user_id');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); // add validation for the email
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        if ($this->form_validation->run() == TRUE) {
+            $update_data = [
+                'full_name' => $this->input->post('name'),
+                'email' => $this->input->post('email'),
+                'address' => $this->input->post('address'),
+                'phone_no' => $this->input->post('phone_no'),
+                'education' => $this->input->post('education'),
+                'experience' => $this->input->post('experience'),
+                'description' => $this->input->post('description'),
+                'skills' => $this->input->post('skills'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
             $this->db->where('id', $id);

@@ -1,21 +1,29 @@
 <?php
-class Role extends CI_Controller
+class Permission extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("role_model");
+        $this->load->model("permission_model");
+        $this->load->model("common_model");
     }
     public function index()
     {
-        $data["role_list"] = $this->role_model->get_role_list();
+        $data["permission_list"] = $this->permission_model->get_permission_list();
         $this->load->view('include/header');
-        $this->load->view('role/list', $data);
+        $this->load->view('permission/list', $data);
+        $this->load->view('include/footer'); 
+    }
+    public function add()
+    {
+        $data['role_list'] = $this->common_model->get_db_data('roles');
+        $this->load->view('include/header');
+        $this->load->view('permission/add', $data);
         $this->load->view('include/footer'); 
     }
 
 
-    public function save_role(){
+    public function save_permission(){
         $this->form_validation->set_rules('name', 'Name', 'required'); // add validation for the email
         if ($this->form_validation->run() == TRUE) {
             $save_data = [
@@ -42,13 +50,13 @@ class Role extends CI_Controller
     }
 
 
-    public function edit($id)
-    {
-        $data['role_detail'] = $this->role_model->get_role_detail($id);
-        $this->load->view('include/header');
-        $this->load->view('role/edit', $data);
-        $this->load->view('include/footer'); 
-    }
+    // public function edit($id)
+    // {
+    //     $data['role_detail'] = $this->permission_model->get_permission_detail($id);
+    //     $this->load->view('include/header');
+    //     $this->load->view('permission/edit', $data);
+    //     $this->load->view('include/footer'); 
+    // }
     public function edit_role($id){
         $this->form_validation->set_rules('name', 'Name', 'required'); // add validation for the email
         $this->form_validation->set_rules('amount', 'Amount', 'trim|required');

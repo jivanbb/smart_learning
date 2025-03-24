@@ -163,7 +163,14 @@
                 </li>
               </ul>
             </li>
-
+            <li class="nav-item">
+              <a href="<?php echo base_url() . 'index.php/module' ?>" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Module
+                </p>
+              </a>
+            </li>
 
 
           </ul>

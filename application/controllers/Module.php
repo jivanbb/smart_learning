@@ -9,29 +9,24 @@ class Module extends CI_Controller
     public function index()
     {
         $data["module_list"] = $this->module_model->get_module_list();
+        $data["parent_module_list"] = $this->module_model->get_parent_module_list();
         $this->load->view('include/header');
         $this->load->view('module/list', $data);
         $this->load->view('include/footer'); 
     }
-    public function add()
-    {
-        $this->load->view('include/header');
-        $this->load->view('course/add');
-        $this->load->view('include/footer'); 
-    }
 
     public function save_module(){
-        $this->form_validation->set_rules('name', ' Name', 'required'); // add validation for the email
-        $this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+        $this->form_validation->set_rules('name', ' Name', 'required'); 
         if ($this->form_validation->run() == TRUE) {
             $save_data = [
                 'name' => $this->input->post('name'),
+                'parent_id' => $this->input->post('parent_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
-            $this->db->insert('courses', $save_data);
-            $course_id = $this->db->insert_id();
-            if ($course_id) {
+            $this->db->insert('modules', $save_data);
+            $module_id = $this->db->insert_id();
+            if ($module_id) {
                 $this->data['success'] = true;
                 $this->data['message'] = 'Sucessfully Saved';
             } else {

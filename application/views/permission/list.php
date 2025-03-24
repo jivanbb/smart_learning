@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Module List</h1>
+            <h1 class="m-0">Permission List</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Modules List </li>
+              <li class="breadcrumb-item active">Permission List </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,7 +26,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-              <button type="button" class="btn btn-flat btn-success btn_add_new float-right" data-toggle="modal" data-target="#new_module"><i class="fa fa-plus"></i> Create</button>
+              <!-- <button type="button" class="btn btn-flat btn-success btn_add_new float-right" data-toggle="modal" data-target="#new_role"><i class="fa fa-plus"></i> Create</button> -->
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -40,13 +40,13 @@
                   </thead>
                   <tbody>
                     <?php $sn =0;
-                    foreach($module_list as $module){
+                    foreach($permission_list as $permission){
                       $sn++;?>
                   <tr>
                     <td><?php echo $sn;?></td>
-                    <td><?php echo $module->name;?></td>
+                    <td></td>
                     <td>
-                       <!-- <a href="<?= base_url('/module/edit/'.$module->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a> -->
+                       <!-- <a href="<?= base_url('/role/edit/'.$role->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a> -->
                       </td>
                   </tr>
                 <?php }?>
@@ -71,34 +71,23 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <div id="new_module" class="modal fade new-july-design" role="dialog">
+  <div id="new_role" class="modal fade new-july-design" role="dialog">
 
 <div class="modal-dialog modal-md">
    <!-- Modal content-->
    <div class="modal-content">
       <div class="modal-header">
-      <h4 class="modal-title">Create Module</h4>
-         <button type="button" class="close" data-dismiss="modal">&times;</button>    
+      <h4 class="modal-title">Create Role</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body new-july-design">
-         <?= form_open(base_url('module/save_module'), [
-            'name' => 'form_module_add',
+         <?= form_open(base_url('role/save_role'), [
+            'name' => 'form_role_add',
             'class' => 'form-horizontal',
-            'id' => 'form_module_add',
+            'id' => 'form_role_add',
             'enctype' => 'multipart/form-data',
             'method' => 'POST'
          ]); ?>
-             <div class="form-group group-name ">
-            <label for="name" class="col-sm-4 control-label"> Parent Module</label>
-            <div class="col-sm-8">
-              <select class="form-control" name="parent_id">
-                <option>Select Parent Module</option>
-                <?php foreach($parent_module_list as $list){?>
-                  <option value="<?php echo $list->id;?>"><?php echo $list->name;?></option>
-                  <?php }?>
-              </select>
-            </div>
-         </div>
          <div class="form-group group-name ">
             <label for="name" class="col-sm-4 control-label"> Name<i class="required">*</i>
             </label>
@@ -122,10 +111,10 @@
 <script>
   $(document).ready(function () {
     $('.btn_save').click(function () {
-      var form_module_add = $('#form_module_add');
-      var data_post = form_module_add.serializeArray();
+      var form_role_add = $('#form_role_add');
+      var data_post = form_role_add.serializeArray();
       $.ajax({
-        url: form_module_add.attr('action'),
+        url: form_role_add.attr('action'),
         type: 'POST',
         dataType: 'json',
         data: data_post,

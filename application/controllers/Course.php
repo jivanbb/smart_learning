@@ -29,7 +29,6 @@ class Course extends CI_Controller
             $save_data = [
                 'name' => $this->input->post('course_name'),
                 'amount' => $this->input->post('amount'),
-                'valid_days' => $this->input->post('valid_days'),
                 'board_id' => $this->input->post('board_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -38,6 +37,7 @@ class Course extends CI_Controller
             $course_id = $this->db->insert_id();
             if ($course_id) {
                 $this->data['success'] = true;
+                $this->data['redirect'] = base_url('course');
                 $this->data['message'] = 'Sucessfully Saved';
             } else {
                 $this->data['success'] = false;
@@ -68,7 +68,6 @@ class Course extends CI_Controller
             $save_data = [
                 'name' => $this->input->post('name'),
                 'amount' => $this->input->post('amount'),
-                'valid_days' => $this->input->post('valid_days'),
                 'board_id' => $this->input->post('board_id'),
                 'edited_by' => $this->session->userdata('user_id'),
                 'edited_at' => date('Y-m-d H:i:s'),
@@ -77,6 +76,7 @@ class Course extends CI_Controller
             $this->db->update('courses', $save_data);
             if ($id) {
                 $this->data['success'] = true;
+                $this->data['redirect'] = base_url('course');
                 $this->data['message'] = 'Sucessfully Saved';
             } else {
                 $this->data['success'] = false;

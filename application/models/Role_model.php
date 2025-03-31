@@ -14,6 +14,10 @@ class Role_model extends CI_Model
     {
         return $this->db->where('id', $id)->get('roles')->row();
     }
+    public function get_role_name($name)
+    {
+        return $this->db->where('name', $name)->get('roles')->row();
+    }
 
 }
 ?>

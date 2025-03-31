@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Role List</h1>
+          <h1 class="m-0">Board List</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Role List </li>
+            <li class="breadcrumb-item active">Board List </li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -27,13 +27,13 @@
           <div class="card">
             <div class="card-header">
               <button type="button" class="btn btn-flat btn-success btn_add_new float-right" data-toggle="modal"
-                data-target="#new_role"><i class="fa fa-plus"></i> Create</button>
+                data-target="#new_board"><i class="fa fa-plus"></i> Create</button>
             </div>
             <!-- /.card-header -->
-            <?= form_open(base_url('role/edit_role'), [
-								'name'    => 'form_role_update',
+            <?= form_open(base_url('board/edit_board'), [
+								'name'    => 'form_board_update',
 								'class'   => 'form-horizontal',
-								'id'      => 'form_role_update',
+								'id'      => 'form_board_update',
 								'enctype' => 'multipart/form-data',
 								'method'  => 'POST',
 							]); ?>
@@ -48,13 +48,13 @@
                 </thead>
                 <tbody>
                   <?php $sn = 0;
-                  foreach ($role_list as $role) {
+                  foreach ($board_list as $board) {
                     $sn++; ?>
                     <tr>
                       <td><?php echo $sn; ?></td>
-                      <td><span class="value"><?= $role->name; ?></span><span class="input hidden"><input type="text"
-                            class="form-control" name="group[<?php echo $role->id; ?>][name]"
-                            value="<?php echo $role->name; ?>" disabled="disabled"></span></td>
+                      <td><span class="value"><?= $board->name; ?></span><span class="input hidden"><input type="text"
+                            class="form-control" name="group[<?php echo $board->id; ?>][name]"
+                            value="<?php echo $board->name; ?>" disabled="disabled"></span></td>
                       <td> <a href="#" class="edit-inline"><i class="fa fa-edit"></i></a></td>
                     </tr>
                   <?php } ?>
@@ -64,7 +64,7 @@
               <div class="col-md-12 mt-10p">
                 <div class="row">
                   <div class="col-xs-6 p-0">
-                    <button type="submit" class="btn  btn-primary update_role" id="btn_edit">Edit
+                    <button type="submit" class="btn  btn-primary update_board" id="btn_edit">Edit
                     </button>
                     <button href="#" id="btn_cancel"
                       class='  btn-red cancel-edit-inline btn btn-flat btn-default btn_action' title="Cancel">
@@ -92,20 +92,20 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<div id="new_role" class="modal fade new-july-design" role="dialog">
+<div id="new_board" class="modal fade new-july-design" board="dialog">
 
   <div class="modal-dialog modal-md">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Create Role</h4>
+        <h4 class="modal-title">Create board/University</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body new-july-design">
-        <?= form_open(base_url('role/save_role'), [
-          'name' => 'form_role_add',
+        <?= form_open(base_url('board/save_board'), [
+          'name' => 'form_board_add',
           'class' => 'form-horizontal',
-          'id' => 'form_role_add',
+          'id' => 'form_board_add',
           'enctype' => 'multipart/form-data',
           'method' => 'POST'
         ]); ?>
@@ -154,11 +154,11 @@
 				});
 
 
-				$('.update_role').click(function() {
+				$('.update_board').click(function() {
 					$('.message').fadeOut();
 
-					var form_role_update = $('#form_role_update');
-					var data_post = form_role_update.serializeArray();
+					var form_board_update = $('#form_board_update');
+					var data_post = form_board_update.serializeArray();
 					var save_type = $(this).attr('data-stype');
 					data_post.push({
 						name: 'save_type',
@@ -168,7 +168,7 @@
 					$('.loading').show();
 
 					$.ajax({
-							url: form_role_update.attr('action'),
+							url: form_board_update.attr('action'),
 							type: 'POST',
 							dataType: 'json',
 							data: data_post,
@@ -211,10 +211,10 @@
 					return false;
 				}); /*end btn save*/
     $('.btn_save').click(function () {
-      var form_role_add = $('#form_role_add');
-      var data_post = form_role_add.serializeArray();
+      var form_board_add = $('#form_board_add');
+      var data_post = form_board_add.serializeArray();
       $.ajax({
-        url: form_role_add.attr('action'),
+        url: form_board_add.attr('action'),
         type: 'POST',
         dataType: 'json',
         data: data_post,

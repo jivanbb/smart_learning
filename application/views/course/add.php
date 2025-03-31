@@ -48,10 +48,7 @@
             <label for="inputClientCompany">Amount <i class="required">*</i></label>
             <input type="text" id="inputClientCompany" name="amount" class="form-control">
           </div>
-          <div class="form-group">
-            <label for="inputProjectLeader">Valid Days</label>
-            <input type="text" id="inputProjectLeader" name="valid_days" class="form-control">
-          </div>
+
           <!-- /.col -->
         </div>
       </div>
@@ -85,8 +82,8 @@
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
-              window.location.reload(true);
-            });
+              window.location.href = res.redirect;
+            },5000);
 
           } else {
             showValidationMessage(`${res.message}`);

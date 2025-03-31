@@ -63,9 +63,15 @@ class Admin extends CI_Controller
             ];
             $this->db->insert('users', $save_data);
             $user_id = $this->db->insert_id();
+            $user_group =[
+                'user_id'=>$user_id,
+                'group_id'=>$this->input->post('group_id'),
+            ];
+            $this->db->insert('user_to_group', $user_group);
             if ($user_id) {
                 $this->data['success'] = true;
                 $this->data['message'] = 'Sucessfully Saved';
+                $this->data['redirect'] = base_url('admin/user_list');
             } else {
                 $this->data['success'] = false;
                 $this->data['message'] = 'Error Occured';
@@ -98,9 +104,21 @@ class Admin extends CI_Controller
             ];
             $this->db->where('id', $id);
             $this->db->update('users', $update_data);
+            $already_exist =$this->user_model->check_already_exist($id);
+            if( $already_exist) { 
+                $this->db->where('user_id', $id);
+                $this->db->update('user_to_group', $update_data);
+             }else{
+                $user_group =[
+                    'user_id'=> $id,
+                    'group_id'=> $this->input->post(''),
+                ];
+                $this->db->insert('user_to_group', $user_group);
+             }
             if ($id) {
                 $this->data['success'] = true;
                 $this->data['message'] = 'Sucessfully Updated';
+                $this->data['redirect'] = base_url('admin/user_list');
             } else {
                 $this->data['success'] = false;
                 $this->data['message'] = 'Error Occured';

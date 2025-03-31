@@ -26,7 +26,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-              <!-- <button type="button" class="btn btn-flat btn-success btn_add_new float-right" data-toggle="modal" data-target="#new_role"><i class="fa fa-plus"></i> Create</button> -->
+              <a href="<?php echo base_url('permission/add')?>" type="btn"  class="btn btn-success float-right">Create</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -41,12 +41,12 @@
                   <tbody>
                     <?php $sn =0;
                     foreach($permission_list as $permission){
+                      $role = $this->permission_model->get_role_name($permission->role_id);
                       $sn++;?>
                   <tr>
                     <td><?php echo $sn;?></td>
-                    <td></td>
-                    <td>
-                       <!-- <a href="<?= base_url('/role/edit/'.$role->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a> -->
+                    <td><?php echo $role->name;?></td>
+                    <td> <a href="<?= base_url('/permission/edit/'.$permission->role_id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a> 
                       </td>
                   </tr>
                 <?php }?>

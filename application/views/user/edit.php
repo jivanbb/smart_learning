@@ -84,7 +84,11 @@
           <div class="row form-group">
             <label for="inputClientCompany" class="col-sm-1 control-label">Role</label>
             <div class="col-sm-5">
-            <input type="text" id="inputClientCompany" class="form-control" placeholder="Education">
+            <select name="group_id" class="form-control">
+              <option>Select Role</option>
+              <?php foreach (db_get_all_data('roles') as $row){?>
+            <option <?php if($user_detail->group_id ==$row->id){echo 'selected';}?> value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+            <?php }?>
             </div>
           </div>
           <!-- /.col -->
@@ -121,8 +125,8 @@
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
-              window.location.reload(true);
-            });
+              window.location.href = res.redirect;
+            },5000);
 
           } else {
             showValidationMessage(`${res.message}`);

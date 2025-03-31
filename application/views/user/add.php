@@ -82,10 +82,11 @@
           <div class="row form-group">
             <label for="inputClientCompany" class="col-sm-1 control-label">Role</label>
             <div class="col-md-6">
-            <select name="role" class="form-control">
+            <select name="group_id" class="form-control">
               <option>Select Role</option>
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
+              <?php foreach (db_get_all_data('roles') as $row){?>
+            <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
+            <?php }?>
             </select>
             </div>
           
@@ -125,7 +126,7 @@
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
-              window.location.reload(true);
+              window.location.href = res.redirect;
             });
 
           } else {

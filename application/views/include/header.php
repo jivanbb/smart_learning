@@ -109,7 +109,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="<?php echo base_url() . 'index.php/admin' ?>" class="nav-link active">
+              <a href="<?php echo base_url('admin') ; ?>" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -127,19 +127,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?php echo base_url() . 'index.php/admin/user_list' ?>" class="nav-link active">
+                  <a href="<?php echo base_url('admin/user_list');?>" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>User</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?php echo base_url() . 'index.php/role/' ?>" class="nav-link active">
+                  <a href="<?php echo base_url('role'); ?>" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Role</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?php echo base_url() . 'index.php/permission' ?>" class="nav-link active">
+                  <a href="<?php echo base_url('permission')  ?>" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Permission</p>
                   </a>
@@ -155,16 +155,34 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="<?php echo base_url('board') ; ?>" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Board/University</p>
+                  </a>
+                </li>
                 <li class="nav-item">
-                  <a href="<?php echo base_url() . 'index.php/course' ?>" class="nav-link active">
+                  <a href="<?php echo base_url('course') ; ?>" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Course</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?php echo base_url('chapter') ; ?>" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chapter</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?php echo base_url('topic') ; ?>" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Topic</p>
                   </a>
                 </li>
               </ul>
             </li>
             <li class="nav-item">
-              <a href="<?php echo base_url() . 'index.php/module' ?>" class="nav-link active">
+              <a href="<?php echo base_url('module')  ?>" class="nav-link ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   Module

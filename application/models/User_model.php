@@ -15,8 +15,16 @@ class User_model extends CI_Model
 return $this->db->get('users')->result();
     }
     public function get_user_detail($id){
-        return $this->db->where('id',$id)->get('users')->row();
+        $this->db->select('u.*,ug.group_id'); 
+        $this->db->from('users u');
+        $this->db->join('user_to_group ug','ug.user_id =u.id','left');
+        $this->db->where('u.id',$id);
+        return $this->db->get()->row();
     }
+    public function check_already_exist($id){ 
+        $this->db->where('user_id',$id);
+        return $this->db->get('user_to_group')->row();
+      }
 
 } 
 ?>

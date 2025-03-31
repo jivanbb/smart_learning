@@ -72,6 +72,11 @@ class Auth extends CI_Controller
             ];
             $this->db->insert('users', $save_data);
             $user_id = $this->db->insert_id();
+            $user_group =[
+                'user_id'=> $user_id,
+                'group_id'=> $this->input->post('role_id'),
+            ];
+            $this->db->insert('user_to_group', $user_group);
             if ($user_id) {
                 $this->data['success'] = true;
                 $this->data['message'] = 'Sucessfully Saved';

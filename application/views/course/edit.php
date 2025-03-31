@@ -53,11 +53,7 @@
             <input type="text" id="inputClientCompany" name="amount" class="form-control"
               value="<?php echo $course_detail->amount; ?>">
           </div>
-          <div class="form-group">
-            <label for="inputProjectLeader">Valid Days</label>
-            <input type="text" id="inputProjectLeader" name="valid_days" class="form-control"
-              value="<?php echo $course_detail->valid_days; ?>">
-          </div>
+
           <!-- /.col -->
         </div>
       </div>
@@ -92,8 +88,8 @@
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
-              window.location.reload(true);
-            });
+              window.location.href = res.redirect;
+            },2000);
 
           } else {
             showValidationMessage(`${res.message}`);

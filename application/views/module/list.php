@@ -49,6 +49,7 @@
                        <!-- <a href="<?= base_url('/module/edit/'.$module->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a> -->
                       </td>
                   </tr>
+                  <?php getSubmodule($module->id);?>
                 <?php }?>
                   </tr>
                   </tbody>
@@ -119,6 +120,22 @@
 </div>
 
 </div>
+<?php function getSubModule($parent, $sub_mark=''){
+  $CI =& get_instance();
+  $results= $CI->db->query("select * from modules where parent_id=".$parent."")->result();
+if(!$results){
+return;
+}
+foreach($results as $row){
+  $html ='<tr><td>'.$sub_mark.'</td>';
+  $html .= '<td>'.$row->name.'</td>';
+  $html .= '<td></td>';
+  $html .= '</tr>';
+  echo $html;
+getSubModule($row->id, $sub_mark.'-');
+}
+
+}?>
 <script>
   $(document).ready(function () {
     $('.btn_save').click(function () {

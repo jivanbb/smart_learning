@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User List</h1>
+            <h1 class="m-0">MCQ List</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User List </li>
+              <li class="breadcrumb-item active">MCQ List </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,30 +26,32 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-              <a href="<?php echo base_url('admin/create_user')?>" type="btn"  class="btn btn-success float-right">Create</a>
+              <a href="<?php echo base_url('mcq/add')?>" type="btn"  class="btn btn-success float-right">Create</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>phone number</th>
-                    <th>Address</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>Course</th>
+                    <th>Chapter</th>
+                    <th>Topic</th>
+                    <th>No of Options</th>
+                    <th>Questions</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($user_list as $user){?>
+                    <?php foreach($mcq_list as $mcq){
+                          $questions = get_no_of_question($mcq->id);?>
                   <tr>
-                    <td><?php echo $user->full_name?></td>
-                    <td><?php echo $user->email;?></td>
-                    <td><?php echo $user->phone_no?></td>
-                    <td><?php echo $user->address?></td>
-                    <td><?php echo $user->role_name?></td>
-                    <td> <a href="<?= base_url('/admin/edit_user/'.$user->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
+                    <td><?php echo $mcq->course_name?></td>
+                    <td><?php echo $mcq->chapter_name;?></td>
+                    <td><?php echo $mcq->topic_name?></td>
+                    <td><?php echo $mcq->no_of_options?></td>
+                    <td><?php echo $questions;?></td>
+                    <td><a href="<?= base_url('/mcq/question/' . $mcq->id); ?>"  class="btn btn-flat btn-success btn_add_new"><i class="fa fa-plus"></i> Question </a>
+                      <a href="<?= base_url('/mcq/edit/'.$mcq->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
                   </tr>
                   <?php }?>
                   </tbody>

@@ -11,8 +11,12 @@ class User_model extends CI_Model
         $this->db->where('pass',md5($password));
         return $this->db->get('users')->row();
     }
-    public function get_user_list(){  
-return $this->db->get('users')->result();
+    public function get_user_list(){ 
+        $this->db->select('u.*,r.name as role_name');
+        $this->db->from('users u'); 
+        $this->db->join('user_to_group g','g.user_id=u.id','left');
+        $this->db->join('roles r','g.group_id =r.id','left');
+return $this->db->get()->result();
     }
     public function get_user_detail($id){
         $this->db->select('u.*,ug.group_id'); 

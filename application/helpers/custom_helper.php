@@ -73,6 +73,18 @@ function check_role_exist_or_not($module_id, $actions = [])
 
     return false;
 }
+function get_no_of_question($id){
+    $CI = &get_instance();
+    $CI->load->database();
+    $CI->db->where('question_id',$id);
+    return $CI->db->get('question_detail')->num_rows();   
+}
+
+function get_mcq_detail($id){
+    $CI = &get_instance();
+    $CI->load->database();
+    return $CI->db->get_where('questions', array('id' => $id))->row();
+}
 
 function pagination($config = []){
     $CI = &get_instance();

@@ -34,10 +34,14 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>tools/plugins/summernote/summernote-bs4.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'tools/css/style.css' ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'tools/plugins/sweetalert2/sweetalert2.css' ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'tools/plugins/dropify/dist/dropify.min.css' ?>">
   <!-- jQuery -->
 <script src="<?php echo base_url() ?>tools/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url() ?>tools/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+      var BASE_URL = "<?= base_url(); ?>";
+</script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

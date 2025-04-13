@@ -48,6 +48,7 @@
 <script src="<?php echo base_url() ?>tools/plugins/sweetalert2/sweetalert2.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript"  src="<?php echo base_url() . 'tools/plugins/dropify/dist/dropify.min.js' ?>"></script>
 <script src="<?php echo base_url() ?>tools/js/custom.js"></script>
 </body>
 </html>

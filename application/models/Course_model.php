@@ -18,6 +18,13 @@ class Course_model extends CI_Model
     {
         return $this->db->where('id', $id)->get('courses')->row();
     }
+    
+    public function check_already_exist($name, $id)
+    {
+        $this->db->where('name', $name);
+        $this->db->where('created_by',$id);
+        return $this->db->get('courses')->row();
+    }
 
 }
 ?>

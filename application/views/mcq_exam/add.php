@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Course List</h1>
+          <h1 class="m-0">MCQ Setup List</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Course List </li>
+            <li class="breadcrumb-item active">MCQ Setup List </li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -22,40 +22,42 @@
   <section class="content">
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
-      <?= form_open(base_url('/course/save_course/'), [
-        'name' => 'form_create_course',
-        'id' => 'form_create_course',
-        'method' => 'POST',   
-        'enctype'=>'multipart/form-data'
+      <?= form_open(base_url('/mcq_setup/save_mcq/'), [
+        'name' => 'form_create_mcq',
+        'id' => 'form_create_mcq',
+        'method' => 'POST'
       ]); ?>
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div class="card-body">
-          <div class="form-group row">
-            <label for="inputName" class="col-form-label col-lg-2">Board/University</label>
+          <div class="row form-group">
+            <label for="inputName" class="col-sm-2 control-label">Course</label>
             <div class="col-md-4">
-              <select class="form-control select2" name="board_id" style="width: 100%;">
-                <option>Select Board/University</option>
-                <?php foreach ($board_list as $board) { ?>
-                  <option value="<?php echo $board->id; ?>"><?php echo $board->name; ?></option>
+              <select class="form-control select2" name="course_id" style="width: 100%;" id="course_id">
+                <option>Select Course</option>
+                <?php foreach (db_get_all_data('courses') as $row) { ?>
+                  <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
                 <?php } ?>
               </select>
             </div>
-            <label for="inputName" class="col-form-label col-lg-2">Course Name <i class="required">*</i></label>
+            <label for="inputName" class="col-sm-2 control-label">Time(In Min) <i class="required">*</i></label>
             <div class="col-md-4">
-            <input type="text" id="inputName" name="course_name" class="form-control">
+              <input type="number" id="inputName" name="time" class="form-control">
             </div>
           </div>
-          <div class="form-group row">
-            <label for="inputClientCompany" class="col-form-label col-lg-2">Amount <i class="required">*</i></label>
+          <div class="row form-group">
+            <label for="inputClientCompany" class="col-sm-2 control-label">Full Marks <i class="required">*</i></label>
             <div class="col-md-4">
-            <input type="text" id="inputClientCompany" name="amount" class="form-control">
+            <input type="text" id="inputClientCompany" name="full_marks" class="form-control">
             </div>
-            <label class="col-form-label col-lg-2">Image </label>
+            <label for="inputClientCompany" class="col-sm-2 control-label">Pass Marks <i class="required">*</i></label>
             <div class="col-md-4">
-              <input type="file" name="image" id="myDropify" class="border" />
+            <input type="text" id="inputClientCompany" name="pass_marks" class="form-control">
             </div>
           </div>
+  
+          <div id="exam_table">
 
+          </div>
 
           <!-- /.col -->
         </div>
@@ -64,7 +66,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="col-12">
-          <input type="submit" value="save" class="btn btn-success create_course">
+          <input type="submit" value="save" class="btn btn-success create_mcq">
           <a href="#" class="btn btn-secondary">Cancel</a>
         </div>
       </div>
@@ -77,36 +79,20 @@
 <!-- /.content-wrapper -->
 <script>
   $(document).ready(function () {
-    $('#myDropify').dropify();
-    $('.create_course').click(function () {
-      // e.preventDefault();
-    var form_create_course = $('#form_create_course');
-      let formData = new FormData();
-      let data = $('#form_create_course').serializeArray();
-
-      $.each(data, function (key, field) {
-        formData.append(field.name, field.value);
-      });
-
-      let fileInput = $('input[name="image"]')[0].files[0];
-      if (fileInput) {
-        formData.append('image', fileInput);
-      }
+    $('.create_mcq').click(function () {
+      var form_create_mcq = $('#form_create_mcq');
+      var data_post = form_create_mcq.serializeArray();
       $.ajax({
-        url: form_create_course.attr('action'),
+        url: form_create_mcq.attr('action'),
         type: 'POST',
         dataType: 'json',
-        data: formData,
-        contentType:false,
-        processData:false,
+        data: data_post,
       })
         .done(function (res) {
-          console.log(res);
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
               window.location.href = res.redirect;
-              return;
             }, 5000);
 
           } else {
@@ -126,5 +112,21 @@
 
       return false;
     }); /*end btn save*/
+
+
+    $('#course_id').change(function () {
+      var course_id = $(this).val();
+      if (course_id !== '') {
+        $.ajax({
+          type: 'GET',
+          data: course_id,
+          dataType: 'html',
+          url: BASE_URL + 'mcq_setup/getChapter/' + course_id,
+          success: function (html) {
+            $('#exam_table').html(html);
+          }
+        });
+      }
+    });
   });
 </script>

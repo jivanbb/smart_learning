@@ -180,6 +180,26 @@ class Mcq extends CI_Controller
 		echo json_encode($data);
 		exit;
 	}
+	public function getChapter($course_id)
+	{
+		$data =get_chapters($course_id);
+		echo '<option value="">Select Chapter</option>';
+		foreach ($data as $key => $value) {
+			echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+		}
+		die();
+	}
+
+
+	public function getTopic($chapter_id)
+	{
+		$data = get_topics($chapter_id);
+		echo '<option value="">Select Topic</option>';
+		foreach ($data as $key => $value) {
+			echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+		}
+		die();
+	}
 
 	function update_name()
 	{

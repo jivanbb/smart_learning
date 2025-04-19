@@ -16,7 +16,7 @@ class Board extends CI_Controller
 
 
     public function save_board(){
-        $this->form_validation->set_rules('name', 'Name', 'required'); // add validation for the email
+        $this->form_validation->set_rules('name', 'Name', 'callback_check_university'); // add validation for the email
         if ($this->form_validation->run() == TRUE) {
             $save_data = [
                 'name' => $this->input->post('name'),
@@ -91,10 +91,25 @@ class Board extends CI_Controller
 		exit;
 	}
 
+	
+	public function check_university(){
+		$name =$this->input->post('name');
+		$id = get_user_data('user_id');
+		if(empty($name)){
+			$this->form_validation->set_message('check_university', 'Please Insert Board/University');
+			return FALSE;
+		}
+		$result = $this->board_model->check_already_name($name,$id);
+			if(!empty($result)){
+				$this->form_validation->set_message('check_university', ''.$result->name.' already exist');
+				return FALSE;
+			}
+	}
+
     function update_name()
 	{
 		$data =   $this->input->post('group');
-
+		$id = get_user_data('user_id');
 		foreach ($data as $key => $value) {
 			if (empty($value['name'])) {
 				$this->form_validation->set_message('update_name', 'Please Insert Name');
@@ -104,7 +119,7 @@ class Board extends CI_Controller
 			if ($value['name'] == $old_value->name) {
 				return TRUE;
 			}
-			$result = $this->board_model->get_board_name($value['name']);
+			$result = $this->board_model->check_already_name($value['name'],$id);
 			if (!empty($result)) {
 				$this->form_validation->set_message('update_name', '' . $result->name . ' already exist');
 				return FALSE;

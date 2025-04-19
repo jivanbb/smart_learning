@@ -18,6 +18,12 @@ class Board_model extends CI_Model
     {
         return $this->db->where('name', $name)->get('boards')->row();
     }
+    public function check_already_name($name, $id)
+    {
+        $this->db->where('name', $name);
+        $this->db->where('created_by',$id);
+        return $this->db->get('boards')->row();
+    }
 
 }
 ?>

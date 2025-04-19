@@ -86,6 +86,17 @@ function get_mcq_detail($id){
     return $CI->db->get_where('questions', array('id' => $id))->row();
 }
 
+function get_chapters($course_id){
+    $CI = &get_instance();
+    $CI->db->where('course_id',$course_id);
+    return $CI->db->get('chapters')->result();
+}
+function get_topics($chapter_id){
+    $CI = &get_instance();
+    $CI->db->where('chapter_id',$chapter_id);
+    return $CI->db->get('topics')->result();
+}
+
 function pagination($config = []){
     $CI = &get_instance();
         $CI->load->library('pagination');

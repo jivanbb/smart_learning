@@ -26,7 +26,7 @@
 
     <div class="card">
       <div class="card-body register-card-body">
-        <p class="login-box-msg">Register a new membership</p>
+        <p class="login-box-msg">Register a new user</p>
         <?= form_open('', [
           'name' => 'form_login',
           'id' => 'form_login',
@@ -35,46 +35,36 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="full_name" placeholder="Full name">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
+            <div class="input-group-text"> <span class="fas fa-user"></span> </div>
           </div>
         </div>
         <div class="input-group mb-3">
           <input type="email" class="form-control" name="email" placeholder="Email">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
+            <div class="input-group-text"></div> <span class="fas fa-envelope"></span>
           </div>
         </div>
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="phone" placeholder="Phone">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-phone"></span>
-            </div>
+            <div class="input-group-text"> <span class="fas fa-phone"></span> </div>
           </div>
         </div>
         <div class="input-group mb-3">
           <select class="form-control" name="role_id">
             <option>Select Role</option>
-            <?php foreach (db_get_all_data('roles') as $row){?>
-            <option value="<?php echo $row->id;?>"><?php echo $row->name;?></option>
-            <?php }?>
+            <?php foreach (db_get_all_data('roles') as $row) { ?>
+              <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+            <?php } ?>
           </select>
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-users"></span>
-            </div>
+            <div class="input-group-text"> <span class="fas fa-users"></span></div>
           </div>
         </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control" name="password" placeholder="Password">
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
+            <div class="input-group-text"><span class="fas fa-lock"></span> </div>
           </div>
         </div>
         <div class="input-group mb-3">

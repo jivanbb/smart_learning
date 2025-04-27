@@ -27,7 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo get_total_students();?></h3>
 
                 <p>Total Students</p>
               </div>
@@ -42,7 +42,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3><?php echo get_total_teacher();?></h3>
 
                 <p>Teacher</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3><?php echo get_total_course();?></h3>
 
                 <p>Course</p>
               </div>
@@ -72,7 +72,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?php echo get_total_mcq();?></h3>
 
                 <p>Total MCQ</p>
               </div>

@@ -6,6 +6,9 @@ class Course extends CI_Controller
         parent::__construct();
         $this->load->model("common_model");
         $this->load->model("course_model");
+        if (!$this->session->userdata('is_logged_in')) {
+			redirect('auth/login', 'refresh');
+		}
     }
     public function index()
     {
@@ -49,6 +52,10 @@ class Course extends CI_Controller
 				$this->data['success'] = false;
 				$this->data['message'] = $this->upload->display_errors();
 			}
+            $previous_image = $this->input->post('prev_image'); 
+			if(!empty($previous_image)){
+				@unlink('uploads/course/'.$previous_image);
+			}
             $save_data = [
                 'name' => $this->input->post('course_name'),
                 'amount' => $this->input->post('amount'),
@@ -89,9 +96,27 @@ class Course extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'required'); // add validation for the email
         $this->form_validation->set_rules('amount', 'Amount', 'trim|required');
         if ($this->form_validation->run() == TRUE) {
+            $image = html_escape($this->input->post('image'));
+            $config['upload_path'] = 'uploads/course/';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['encrypt_name'] = TRUE; // Generate unique name
+            $config['max_size'] = 10000000;
+			$config['file_name'] = $image;
+			$this->load->library('upload', $config);
+            $this->upload->initialize($config);
+			if ($this->upload->do_upload('image')) {    
+				$uploadData = $this->upload->data();
+				$photo = $uploadData['file_name'];
+             
+			} else {          
+				$photo = NULL;
+				$this->data['success'] = false;
+				$this->data['message'] = $this->upload->display_errors();
+			}
             $save_data = [
                 'name' => $this->input->post('name'),
                 'amount' => $this->input->post('amount'),
+                'image'=>$photo,
                 'board_id' => $this->input->post('board_id'),
                 'edited_by' => $this->session->userdata('user_id'),
                 'edited_at' => date('Y-m-d H:i:s'),

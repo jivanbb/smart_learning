@@ -6,6 +6,9 @@ class Mcq_setup  extends CI_Controller
         parent::__construct();
         $this->load->model("common_model");
         $this->load->model("mcq_setup_model");
+		if (!$this->session->userdata('is_logged_in')) {
+			redirect('auth/login', 'refresh');
+		}
     }
     public function index()
     {

@@ -5,6 +5,9 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model("user_model");
+        if (!$this->session->userdata('is_logged_in')) {
+			redirect('auth/login', 'refresh');
+		}
     }
     public function index()
     {
@@ -12,10 +15,7 @@ class Admin extends CI_Controller
         $this->load->view('include/dashboard');
         $this->load->view('include/footer'); 
     }
-    public function category()
-    {
-        echo "This is a category function";
-    }
+  
 
     public function profile(){
         $id =$this->session->userdata('user_id');

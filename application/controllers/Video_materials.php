@@ -6,6 +6,9 @@ class Video_materials extends CI_Controller
         parent::__construct();
         $this->load->model("common_model");
         $this->load->model("video_materials_model");
+        if (!$this->session->userdata('is_logged_in')) {
+			redirect('auth/login', 'refresh');
+		}
     }
     public function index()
     {

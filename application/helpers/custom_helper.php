@@ -34,6 +34,31 @@ if (!function_exists('db_get_all_data')) {
     }
 }
 
+function get_total_students(){
+    $CI = &get_instance();
+    $CI->load->database();
+    $CI->db->where('group_id',3);
+    return $CI->db->get('user_to_group')->num_rows();   
+}
+function get_total_teacher(){
+    $CI = &get_instance();
+    $CI->load->database();
+    $CI->db->where('group_id',2);
+    return $CI->db->get('user_to_group')->num_rows();   
+}
+
+function get_total_course(){
+    $CI = &get_instance();
+    $CI->load->database();
+    return $CI->db->get('courses')->num_rows();   
+}
+
+function get_total_mcq(){
+    $CI = &get_instance();
+    $CI->load->database();
+    return $CI->db->get('question_detail')->num_rows();   
+}
+
 function check_role_exist_or_not($module_id, $actions = [])
 {
     $CI = &get_instance();

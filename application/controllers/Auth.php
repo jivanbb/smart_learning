@@ -17,7 +17,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); // add validation for the email
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
-            redirect('auth/login');
+            $this->load->view('login');
         } else {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
@@ -37,7 +37,7 @@ class Auth extends CI_Controller
 
             } else {
                 $this->session->set_flashdata('error', 'Email or password does not match');
-                redirect('auth/login');
+                $this->load->view('login');
             }
 
 

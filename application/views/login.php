@@ -23,7 +23,15 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+      <?php
+								echo validation_errors('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>', '</div>');
 
+								if ($this->session->flashdata('error')) {
+									echo '<div class="alert alert-danger" role="alert">' . $this->session->flashdata('error') . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button></div>';
+								}
+								?>
       <form action="<?php echo base_url('auth/validate')?>" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" name="email" placeholder="Email">

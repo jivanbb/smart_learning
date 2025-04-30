@@ -116,7 +116,7 @@ function getSubmodule($sub_group, $modules, $sub_mark = '-')
   $delete_array = $arr;
   foreach ($sub_group as $key => $data) {
     $use = '<tr>';
-    $use .= '<td><input type="checkbox" class="check_row child_' . $data->parent_id . ' parent_' . $data->id . ' " onchange="childChanged(' . $data->parent_id . ',' . $data->id . ')"></td>';
+    $use .= '<td><input type="checkbox" class="check_row child_' . $data->parent . ' parent_' . $data->id . ' " onchange="childChanged(' . $data->parent . ',' . $data->id . ')"></td>';
     $use .= '<td value="' . $data->id . '">  &nbsp; &nbsp; &nbsp; &nbsp; ' . $sub_mark . ' ' . $data->name . '</td>';
     $use .= '<td><input type="checkbox" name="permission[' . $data->id . '][add]"
 								value = "1" class="check_one"></td>';

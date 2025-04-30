@@ -88,21 +88,19 @@
   $(document).ready(function () {
     $('#myDropify').dropify();
     $('.create_material').click(function () {
-      // var form_create_course = $('#form_create_course');
-      // var data_post = form_create_course.serializeArray();
-      e.preventDefault();
+      // e.preventDefault();
+    var form_create_course = $('#form_create_course');
+      let formData = new FormData();
+      let data = $('#form_create_course').serializeArray();
 
-			let formData = new FormData();
-			let data = $('#form_create_course').serializeArray();
+      $.each(data, function (key, field) {
+        formData.append(field.name, field.value);
+      });
 
-			$.each(data, function(key, field) {
-				formData.append(field.name, field.value);
-			});
-
-			let fileInput = $('input[name="image"]')[0].files[0];
-			if (fileInput) {
-				formData.append('image', fileInput);
-			}
+      let fileInput = $('input[name="image"]')[0].files[0];
+      if (fileInput) {
+        formData.append('image', fileInput);
+      }
       $.ajax({
         url: form_create_course.attr('action'),
         type: 'POST',
@@ -112,10 +110,11 @@
         processData:false,
       })
         .done(function (res) {
+          console.log(res);
           if (res.success) {
             showStatusMessage('success', 'Success', res.message);
             setTimeout(() => {
-              window.location.reload(true);
+              window.location.href = res.redirect;
               return;
             }, 5000);
 

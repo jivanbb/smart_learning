@@ -97,7 +97,7 @@ class Board extends CI_Controller
 	
 	public function check_university(){
 		$name =$this->input->post('name');
-		$id = get_user_data('user_id');
+		$id =  $this->session->userdata('user_id');
 		if(empty($name)){
 			$this->form_validation->set_message('check_university', 'Please Insert Board/University');
 			return FALSE;

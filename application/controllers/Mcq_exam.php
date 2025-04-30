@@ -13,183 +13,156 @@ class Mcq_exam  extends CI_Controller
     public function index()
     {
 		$filter = $this->input->get();
-		$data['teachers'] = $this->mcq_exam_model->get_teachers();
-		$data['results'] = $this->mcq_exam_model->get_mcq_exam_list($filter);
+		 $data['teachers'] = $this->mcq_exam_model->get_teachers();
+		$data['mcq_list'] = $this->mcq_exam_model->get_mcq_exam_list($filter);
+		$this->data['filter'] = $filter;
         $this->load->view('include/header');
-        $this->load->view('mcq_setup/list',$data);
-        $this->load->view('include/footer'); 
-    }
-    public function add()
-    {
-        $this->load->view('include/header');
-        $this->load->view('mcq_setup/add');
+        $this->load->view('mcq_exam/list',$data);
         $this->load->view('include/footer'); 
     }
 
-    public function save_mcq(){
-        $this->form_validation->set_rules('course_id', 'Course ', 'trim|required');
-		$this->form_validation->set_rules('time', 'Time', 'trim|required');
-		$this->form_validation->set_rules('full_marks', 'Full Marks', 'trim|required');
-		$this->form_validation->set_rules('pass_marks', 'Pass Marks', 'trim|required');
-		$this->form_validation->set_rules('marks', 'Marks', 'trim|required');
-        if ($this->form_validation->run() == TRUE) {
-            $chapter_data =	$this->input->post('chapter_data');
-			$save_data = [
-				'course_id' => $this->input->post('course_id'),
-				'time' => $this->input->post('time'),
-				'full_marks' => $this->input->post('full_marks'),
-				'negative_marking' => $this->input->post('negative_marking'),
-				'pass_marks' => $this->input->post('pass_marks'),
-				'question_marks' => $this->input->post('marks'),
-				'created_by' =>$this->session->userdata('user_id'),
-				'created_at' => date('Y-m-d H:i:s')
-			];
-			 $this->db->insert('mcq_exam',$save_data);
-            $mcq_exam_id = $this->db->insert_id();
-			$total_questions = 0;
-			$questions = [];
-			foreach ($chapter_data as $key => $data) {
-				$mcq_detail = [
-					'mcq_exam_id' => $mcq_exam_id,
-					'chapter_id' => $key,
-					'no_of_question' => $data['no_of_questions']
-				];
-				$questions[] = $data['no_of_questions'];
-				$this->db->insert('mcq_exam_detail', $mcq_detail);
-			}
-			$total_questions = array_sum($questions);
-			$this->db->set('total_questions', $total_questions);
-			$this->db->where('id', $mcq_exam_id);
-			$this->db->update('mcq_exam');
-       
-            if ($mcq_exam_id) {
-                $this->data['success'] = true;
-                $this->data['redirect'] = base_url('mcq_setup');
-                $this->data['message'] = 'Sucessfully Saved';
-            } else {
-                $this->data['success'] = false;
-                $this->data['message'] = 'Error Occured';
-            }
-        } else {
-            $this->data['success'] = false;
-            $this->data['message'] = validation_errors();
-        }
-
-        echo json_encode($this->data);
-        exit;
-    }
-
-
-    public function edit($id)
-    {
-        $data['mcq_detail'] =$this->mcq_exam_model->get_mcq_detail($id);
-        $data['mcq_exam_detail'] = $this->mcq_exam_model->get_mcq_exam_detail($id);
-        $this->load->view('include/header');
-        $this->load->view('mcq_setup/edit',$data);
-        $this->load->view('include/footer'); 
-    }
-    public function edit_mcq($id){
-        $this->form_validation->set_rules('time', 'Time', 'trim|required');
-		$this->form_validation->set_rules('full_marks', 'Full Marks', 'trim|required');
-		$this->form_validation->set_rules('pass_marks', 'Pass Marks', 'trim|required');
-		$this->form_validation->set_rules('marks', 'Marks', 'trim|required');
-        if ($this->form_validation->run() == TRUE) {
-            $chapter_data =	$this->input->post('chapter_data');
-			$save_data = [
-				'time' => $this->input->post('time'),
-				'full_marks' => $this->input->post('full_marks'),
-				'pass_marks' => $this->input->post('pass_marks'),
-				'question_marks' => $this->input->post('marks'),
-				'negative_marking' => $this->input->post('negative_marking'),
-				'edited_by' => $this->session->userdata('user_id'),
-				'edited_at' => date('Y-m-d')
-			];
-            $this->db->where('id', $id);
-			$this->db->update('mcq_exam',$save_data);
-			$total_questions = 0;
-			$questions = [];
-			foreach ($chapter_data as $key => $data) {
-				$this->mcq_exam_model->update_mcq_exam_detail($id, $key, $data['no_of_questions']);
-				$questions[] = $data['no_of_questions'];
-			}
-
-			$total_questions = array_sum($questions);
-			$this->db->set('total_questions', $total_questions);
-			$this->db->where('id', $id);
-			$this->db->update('mcq_exam');
-            if ($id) {
-                $this->data['success'] = true;
-                $this->data['redirect'] = base_url('mcq_setup');
-                $this->data['message'] = 'Sucessfully Saved';
-            } else {
-                $this->data['success'] = false;
-                $this->data['message'] = 'Error Occured';
-            }
-        } else {
-            $this->data['success'] = false;
-            $this->data['message'] = validation_errors();
-        }
-
-        echo json_encode($this->data);
-        exit;
-    }
-
-    
-	function getChapter($chapter_id)
+	public function start_exam($id)
 	{
-		$result = $this->get_chapter_data($chapter_id);
-		echo $result;
-		exit;
+		$question_arr = [];
+		$combinedArray = [];
+		$mcq_exam = $this->mcq_exam_model->get_mcq_exam($id);
+		$exam_details = $this->mcq_exam_model->get_mcq_exam_detail($id);
+		foreach ($exam_details as $data) {
+			$questions = $this->mcq_exam_model->get_questions_detail($data->chapter_id, $data->no_of_question);
+			$combinedArray = array_merge($combinedArray, $questions);
+		}
+
+		foreach ($combinedArray  as $key => $res) {
+			if ($res->correct_option == 1) {
+				$correct_option = $res->option_1;
+			} elseif ($res->correct_option == 2) {
+				$correct_option = $res->option_2;
+			} elseif ($res->correct_option == 3) {
+				$correct_option = $res->option_3;
+			} elseif ($res->correct_option == 4) {
+				$correct_option = $res->option_4;
+			} else {
+				$correct_option = '';
+			}
+			$question_arr[] = [
+				'question_id' => $res->id,
+				'question' => $res->question,
+				'options' => [
+					$res->option_1,
+					$res->option_2,
+					$res->option_3,
+					$res->option_4
+				],
+				'answer' => $correct_option,
+			];
+		}
+		$this->data['question_mark'] = $mcq_exam->question_marks;
+		$this->data['time'] = $mcq_exam->time * 60;
+		$this->data['time_min'] = $mcq_exam->time;
+		$this->data['start_time'] = date('Y-m-d H:i:s');
+		$this->data['questions'] = json_encode($question_arr);
+		$this->data['exam_id'] = $id;
+		$this->load->view('include/header');
+        $this->load->view('mcq_exam/exam',$this->data);
+        $this->load->view('include/footer');
 	}
 
-    public function get_chapter_data($course_id)
+	public function save_exam()
 	{
-		$results = $this->mcq_exam_model->get_chapter_details($course_id);
-		ob_start(); ?>
-		<div class="row form-group group-marks ">
-			<label for="no_of_options" class="col-sm-2 control-label">Marks <i class="required">*</i>
-			</label>
-			<div class="col-sm-4">
-				<input type="number" class="form-control" name="marks" placeholder="Marks">
-				<small class="info help-block">(Each question marks)
-				</small>
-			</div>
-			<label for="set" class="col-sm-2 control-label">Negative Marking <i class="required">*</i>
-			</label>
-			<div class="col-sm-4">
-				<input type="number" class="form-control" name="negative_marking" placeholder="Negative Marking">
-				<small class="info help-block">(percent)
-				</small>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="dt-responsive table-responsive col-md-10">
-				<table class="table table-striped table-bordered nowrap">
-					<thead>
-						<tr>
-							<th>SN.</th>
-							<th>Chapter Name</th>
-							<th width="20%">No of Question</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php $sn = 0;
-						foreach ($results as $result):
-							$sn++; ?>
-							<tr>
-								<td><?php echo $sn; ?></td>
-								<td><?php echo $result->name; ?></td>
-								<td><input type="text" class="form-control" name="chapter_data[<?php echo $result->id; ?>][no_of_questions]"></td>
-							</tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			</div>
-		</div>
-<?php
-		return ob_get_clean();
+		$exam_start_time = $this->input->post('start_time');
+		$submitted_time = date('Y-m-d H:i:s');
+		$start_time = new DateTime($exam_start_time);
+        $end_time_obj = new DateTime($submitted_time);
+        $time_taken = $start_time->diff($end_time_obj)->s + 
+                      ($start_time->diff($end_time_obj)->i * 60) + 
+                      ($start_time->diff($end_time_obj)->h * 3600);
+		$questions =	$this->input->post('question');
+		$exam_id =	$this->input->post('exam_id');
+		$question_mark =	$this->input->post('question_mark');
+		$wrong_detail =	$this->input->post('wrong_detail');
+		$wrong =	$this->input->post('wrong');
+		$correct =	$this->input->post('correct');
+		$not_answered =	$this->input->post('not_answered');
+		$wrong_ans =	$this->input->post('wrong_ans');
+		$wrong_ans_list = explode(",", $wrong_ans);
+		$correct_ans =	$this->input->post('correct_ans');
+		$correct_ans_list = explode(",", $correct_ans);
+		$not_answered_list =	$this->input->post('not_answered_list');
+		$not_answered_array = explode(",", $not_answered_list);
+		$score =$correct*$question_mark;
+		$exam_data = [
+			'exam_id' => $exam_id,
+			'questions' => json_encode($questions),
+			'wrong' => $wrong,
+			'correct' => $correct,
+			'score'=>$score,
+			'not_answered' => $not_answered,
+			'wrong_ans' => json_encode($wrong_ans_list),
+			'correct_ans' => json_encode($correct_ans_list),
+			'not_ans' => json_encode($not_answered_array),
+			'user_id' =>  $this->session->userdata('user_id'),
+			'time_taken'=>$time_taken,
+			'start_time'=>$exam_start_time,
+			'submitted_time' => $submitted_time,
+			'created_at'=>date('Y-m-d')
+		];
+		$this->db->insert('exam_result', $exam_data);
+		$result_id = $this->db->insert_id();
+		$wrong_detail_list = json_decode($wrong_detail);
+		foreach ($wrong_detail_list as $data) {
+			$result_data = [
+				'result_id' => $result_id,
+				'question_id' => $data->qn,
+				'ans' => $data->ans
+			];
+			$this->db->insert('result_detail', $result_data);
+		}
+		if ($result_id) {
+
+			$this->data['success'] = true;
+			$this->data['id'] 	   = $result_id;
+			$this->data['redirect'] = base_url('mcq_exam/exam_result/' . $result_id);
+			$this->data['message'] = 'Sucessfully Saved';
+		} else {
+			$this->data['success'] = false;
+			$this->data['message'] = 'Error Occured';
+		}
+		echo json_encode($this->data);
+        exit;
 	}
+
+	public function exam_result($id)
+	{
+		$user_id=$this->session->userdata('user_id');
+		$this->data['exam_detail'] = $this->mcq_exam_model->get_exam_result_detail($id);
+		$this->data['id'] = $id;
+		$this->data['rank']=get_student_rank($this->data['exam_detail']->exam_id,$user_id,$id);
+		$this->data['total_user'] = count_total_exam_attended($this->data['exam_detail']->exam_id);
+		$this->load->view('include/header');
+        $this->load->view('mcq_exam/exam_result',$this->data);
+        $this->load->view('include/footer');
+	}
+
+	public function exam_result_detail($id)
+	{
+		$this->data['exam_detail'] = $this->mcq_exam_model->get_exam_result_detail($id);
+		$this->data['id'] = $id;
+		$this->load->view('include/header');
+        $this->load->view('mcq_exam/exam_result_detail',$this->data);
+        $this->load->view('include/footer');
+
+	}
+
+    public function getCourse($teacher)
+	{
+		$data = $this->mcq_exam_model->getCourseByTeacher($teacher);
+		echo '<option value="">Select Course</option>';
+		foreach ($data as $key => $value) {
+			echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+		}
+		die();
+	}
+
 
 }
 ?>

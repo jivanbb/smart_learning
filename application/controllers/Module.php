@@ -23,11 +23,11 @@ class Module extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
             $save_data = [
                 'name' => $this->input->post('name'),
-                'parent_id' => $this->input->post('parent_id'),
+                'parent' => $this->input->post('parent'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
-            $this->db->insert('modules', $save_data);
+            $this->db->insert('module', $save_data);
             $module_id = $this->db->insert_id();
             if ($module_id) {
                 $this->data['success'] = true;

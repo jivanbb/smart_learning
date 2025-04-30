@@ -12,31 +12,32 @@ class Video_materials extends CI_Controller
     }
     public function index()
     {
-        $data["course_list"] = $this->video_materials_model->get_course_list();
+        $data["material_list"] = $this->video_materials_model->get_video_material_list();
         $this->load->view('include/header');
         $this->load->view('video_materials/list', $data);
         $this->load->view('include/footer'); 
     }
     public function add()
     {
-        $data['board_list'] = $this->common_model->get_db_data('boards');
+        $data['course_list'] = $this->common_model->get_db_data('courses');
         $this->load->view('include/header');
         $this->load->view('video_materials/add', $data);
         $this->load->view('include/footer'); 
     }
 
-    public function save_course(){
-        $this->form_validation->set_rules('course_name', 'Course Name', 'required'); // add validation for the email
-        $this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+    public function save_material(){
+        $this->form_validation->set_rules('course_id', 'Course ', 'required'); // add validation for the email
+
         if ($this->form_validation->run() == TRUE) {
             $save_data = [
-                'name' => $this->input->post('course_name'),
-                'amount' => $this->input->post('amount'),
-                'board_id' => $this->input->post('board_id'),
+                'course_id' => $this->input->post('course_id'),
+                'chapter_id' => $this->input->post('chapter_id'),
+                'topic_id' => $this->input->post('topic_id'),
+                'materials'=> $this->input->post('materials'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
-            $this->db->insert('study_materials', $save_data);
+            $this->db->insert('video_materials', $save_data);
             $material_id = $this->db->insert_id();
             if ($material_id) {
                 $this->data['success'] = true;

@@ -43,11 +43,11 @@
                   <tbody>
                     <?php foreach($material_list as $material){?>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> <a href="<?= base_url('/course/edit/'.$material->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
+                    <td><?php echo $material->course_name;?></td>
+                    <td><?php echo $material->chapter_name;?></td>
+                    <td><?php echo $material->topic_name;?></td>
+                    <td><img src="<?= base_url() . 'uploads/study_material/' . $material->materials; ?>" class="image-responsive" alt="image sp_course" title="image sp_course" width="40px"></td>
+                    <td> <a href="<?= base_url('/study_material/edit/'.$material->id); ?>"  class="label-default btn-act-edit"><i class="fa fa-edit "></i> </a></td>
                   </tr>
                 <?php }?>
                   </tr>

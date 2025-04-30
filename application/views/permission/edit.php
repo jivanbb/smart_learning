@@ -139,7 +139,7 @@ function getSubmodule($sub_group, $modules, $roles, $sub_mark = '-')
 
   foreach ($sub_group as $key => $data) {
     $use = '<tr>';
-    $use .= '<td><input type="checkbox" class="check_row child_' . $data->parent_id . ' parent_' . $data->id . '" onchange="childChanged(' . $data->parent_id . ',' . $data->id . ')"></td>';
+    $use .= '<td><input type="checkbox" class="check_row child_' . $data->parent . ' parent_' . $data->id . '" onchange="childChanged(' . $data->parent . ',' . $data->id . ')"></td>';
     $use .= '<td value="' . $data->id . '">  &nbsp; &nbsp; &nbsp; &nbsp;  ' . $sub_mark . ' ' . $data->name . '</td>';
     if (@$roles[$data->id]["add"] == 1) {
       $use .= '<td><input type="checkbox" name="permission[' . $data->id . '][add]" checked

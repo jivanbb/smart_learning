@@ -39,8 +39,8 @@ class Permission_model extends CI_Model
 
 public function get_modules(){
     $this->db->select('*');
-		$this->db->from('modules');
-		$this->db->where('parent_id', 0);
+		$this->db->from('module');
+		$this->db->where('parent', 0);
 		$parent = $this->db->get();
 
 		$categories = $parent->result();
@@ -55,8 +55,8 @@ public function get_modules(){
 public function sub_module($id){
 
     $this->db->select('*');
-    $this->db->from('modules');
-    $this->db->where('parent_id', $id);
+    $this->db->from('module');
+    $this->db->where('parent', $id);
 
     $child = $this->db->get();
     $categories = $child->result();

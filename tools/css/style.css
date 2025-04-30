@@ -5,3 +5,99 @@
 .hidden{
     display: none;
 }
+
+.main-wrapper{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+ .answers-containers{
+    margin-top: 10px;
+max-width: 420px;
+ }
+.each-answer{
+    /* margin: 10px 0%; */
+    padding: 10px;
+background: aliceblue;
+border: 1px solid #84c5fe;
+margin-bottom: 10px;
+cursor: pointer;
+}
+.prev-next, .jumper-button{
+    padding: 5px 10px;
+    margin: 2px 0%;
+    background-color: blue;
+    color: white;
+    border: white 1px solid;
+    cursor: pointer;
+}
+.jumper-button.active{
+    background-color: white;
+    color: blue;
+    border: blue solid 1px;
+}
+
+.jumper-button.answered{
+    background-color: green;
+    color: white;
+    border: white solid 1px;
+}
+.action-btns button:hover{
+    background-color: white;
+    color: blue;
+    border: blue solid 1px;
+}
+.result-wrapper{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.result-details{
+    display: inline-flex;
+    justify-content: center;
+}
+.result-details > div{
+    margin: 20px;
+}
+
+#countdown {
+    font-size: 18px;
+    font-weight: 500;
+    height: 30px;
+    width: 45px;
+    color: #fff;
+    border-radius: 2px;
+    line-height: 30px;
+    text-align: center;
+    background: #343a40;
+    border: 2px solid #343a40;
+  }
+
+  .index_button{
+    width: 15px;
+    height: 25px;
+    margin-left: 40px;
+    margin-right: 15px;
+  }
+
+  .correct {
+    background-color: green;
+    color: white;
+}
+.wrong {
+    background-color: red;
+    color: white;
+}
+.not_answered {
+    background-color: yellow;
+    color: black;
+}
+.question-button {
+    padding: 5px 10px;
+    margin: 2px 0%;
+    border: white 1px solid;
+    cursor: pointer;
+}

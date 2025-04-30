@@ -27,7 +27,7 @@ class Study_materials extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
             $image = html_escape($this->input->post('image'));
             $config['upload_path'] = 'uploads/study_material/';
-			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|doc';
 			$config['encrypt_name'] = TRUE; // Generate unique name
             $config['max_size'] = 10000000;
 			$config['file_name'] = $image;
